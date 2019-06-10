@@ -6,7 +6,7 @@ Handbrake GUI with Web browser and VNC access. Supports NVENC encoding
 
 Requires
 ```
- --runtime=nvidia
+--runtime=nvidia
 -e NVIDIA_DRIVER_CAPABILITIES=all
 ```
 additional requirements:
