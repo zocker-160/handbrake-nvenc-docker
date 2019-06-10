@@ -25,14 +25,14 @@ docker run -d \
 ```
 Where:
 
-- '/docker/appdata/handbrake': This is where the application stores its configuration, log and any files needing persistency.
-- 'Port 5800': for WebGUI
-- 'Port 5900': for VNC client connection
-- '$HOME': This location contains files from your host that need to be accessible by the application.
-- '$HOME/HandBrake/watch': This is where videos to be automatically converted are located.
-- '$HOME/HandBrake/output': This is where automatically converted video files are written.
+- `/docker/appdata/handbrake`: This is where the application stores its configuration, log and any files needing persistency.
+- `Port 5800`: for WebGUI
+- `Port 5900`: for VNC client connection
+- `$HOME`: This location contains files from your host that need to be accessible by the application.
+- `$HOME/HandBrake/watch`: This is where videos to be automatically converted are located.
+- `$HOME/HandBrake/output`: This is where automatically converted video files are written.
 
-Browse to 'http://your-host-ip:5800' to access the HandBrake GUI. Files from the host appear under the ''/storage' folder in the container.
+Browse to `http://your-host-ip:5800` to access the HandBrake GUI. Files from the host appear under the `/storage` folder in the container.
 
 additional detailed info:
 https://hub.docker.com/r/jlesage/handbrake#docker-container-for-handbrake
