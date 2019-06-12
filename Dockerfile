@@ -1,5 +1,5 @@
 # djaydev/HandBrake:latest
- 
+
 # Pull base image.
 FROM debian:sid AS builder
 
@@ -129,14 +129,28 @@ RUN echo "Downloading HandBrake sources..." && \
 
 FROM jlesage/baseimage-gui:debian-9
 
+WORKDIR /tmp
+
 # Install dependencies.
 RUN echo "deb http://deb.debian.org/debian sid main non-free contrib" >> /etc/apt/sources.list && \
-	apt update && \
-	DEBIAN_FRONTEND=noninteractive apt install --no-install-recommends \
-		handbrake \
-        xz-utils \
-        # To read encrypted DVDs
-        libdvd-pkg \
+	  apt update && \
+	  DEBIAN_FRONTEND=noninteractive apt install --no-install-recommends \
+        # HandBrake dependencies
+        libass9 libavcodec58 \
+        libavfilter7 libavformat58 \
+        libavutil56 libbluray2 \
+        libc6 libdvdnav4 \
+        libdvdread4 libcairo2 \
+        libgstreamer-plugins-base1.0-0 \
+        libgdk-pixbuf2.0-0 libglib2.0-0 \
+        libgtk-3-0 libgstreamer1.0-0 \
+        libgudev-1.0-0 libjansson4 \
+        libpango-1.0-0 libsamplerate0 \
+        libswresample3 libswscale5 \
+        libtheora0 libvorbis0a \
+        libvorbisenc2 libx264-155 \
+        libx265-165 libxml2 \
+        xz-utils wget \
         # For optical drive listing:
         lsscsi \
         # For watchfolder
@@ -145,10 +159,18 @@ RUN echo "deb http://deb.debian.org/debian sid main non-free contrib" >> /etc/ap
         yad \
         findutils \
         expect \
-		tcl8.6 \
-		-y
-
-RUN dpkg-reconfigure -f noninteractive libdvd-pkg
+		    tcl8.6 \
+		    -y && \
+    # To read encrypted DVDs
+    wget http://www.deb-multimedia.org/pool/main/libd/libdvdcss/libdvdcss2_1.4.2-dmo1_amd64.deb && \
+    apt install ./libdvdcss2_1.4.2-dmo1_amd64.deb -y && \
+    # Cleanup
+    apt-get remove wget -y && \
+    apt-get autoremove -y && \
+    apt-get autoclean -y && \
+    apt-get clean -y && \
+    apt-get purge -y && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Adjust the openbox config.
 RUN \
@@ -161,15 +183,16 @@ RUN \
 
 # Generate and install favicons.
 RUN \
-	apt install --no-install-recommends npm -y && \
+  apt update && \
+  apt install --no-install-recommends npm -y && \
     APP_ICON_URL=https://raw.githubusercontent.com/jlesage/docker-templates/master/jlesage/images/handbrake-icon.png && \
     install_app_icon.sh "$APP_ICON_URL" && \
 	apt remove npm -y && \
 	apt-get autoremove -y && \
-    apt-get autoclean -y && \
-    apt-get clean -y && \
-    apt-get purge -y && \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+  apt-get autoclean -y && \
+  apt-get clean -y && \
+  apt-get purge -y && \
+  rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Add files.
 COPY rootfs/ /
