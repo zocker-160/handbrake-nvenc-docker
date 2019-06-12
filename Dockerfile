@@ -24,73 +24,29 @@ RUN \
     apt update && \
 	  apt install \
     # build tools.
-    curl \
-    build-essential \
-    autoconf \
-    libtool \
-    m4 \
-    patch \
-    coreutils \
-    tar \
-    file \
-    git \
-    diffutils \
-    bash \
+    curl build-essential autoconf libtool \
+    m4 patch coreutils tar file git \
+    diffutils bash \
     # misc libraries
-    libpciaccess-dev \
-    xz-utils \
-    # media libraries
-    libsamplerate-dev \
-    libass-dev \
-    # media codecs
-    libopus-dev \
-    libvorbis-dev \
-    # gtk
-    gtk+3.0-dev \
-    libdbus-glib-1-dev \
-    libnotify-dev \
-    libgudev-1.0-dev \
-		automake \
-		cmake \
-		debhelper \
-		intltool \
-		libass-dev \
-		libavcodec-dev \
-		libavfilter-dev \
-		libavformat-dev \
-		libavutil-dev \
-		libbluray-dev \
-		libbz2-dev \
-		libdbus-glib-1-dev \
-		libdvdnav-dev \
-		libdvdread-dev  \
-		libfontconfig1-dev \
-		libfreetype6-dev \
-		libgstreamer-plugins-base1.0-dev \
-		libgstreamer1.0-dev \
-		libgtk-3-dev \
-		libgudev-1.0-dev \
-		libjansson-dev \
-		liblzma-dev \
-		libmp3lame-dev \
-		libmpeg2-4-dev \
-		libogg-dev \
-		libopus-dev \
-		libsamplerate0-dev \
-		libspeex-dev \
-		libswresample-dev \
-		libswscale-dev \
-		libtheora-dev \
-		libtool \
-		libtool-bin \
-		libvorbis-dev \
-		libvpx-dev \
-		libx264-dev \
-		libx265-dev \
-		libxml2-dev \
-		python \
-		nasm \
-		yasm \
+    libpciaccess-dev xz-utils \
+    # media libraries, media codecs, gtk
+    libsamplerate-dev libass-dev libopus-dev \
+    libvorbis-dev gtk+3.0-dev libdbus-glib-1-dev \
+    libnotify-dev libgudev-1.0-dev automake cmake \
+    debhelper intltool libass-dev libavcodec-dev \
+    libavfilter-dev libavformat-dev libavutil-dev \
+    libbluray-dev libbz2-dev libdbus-glib-1-dev \
+		libdvdnav-dev libdvdread-dev libfontconfig1-dev \
+		libfreetype6-dev libgstreamer-plugins-base1.0-dev \
+		libgstreamer1.0-dev libgtk-3-dev \
+		libgudev-1.0-dev libjansson-dev liblzma-dev \
+		libmp3lame-dev libmpeg2-4-dev libogg-dev \
+		libopus-dev libsamplerate0-dev \
+		libspeex-dev libswresample-dev libswscale-dev \
+		libtheora-dev libtool libtool-bin \
+		libvorbis-dev libvpx-dev libx264-dev \
+		libx265-dev libxml2-dev python \
+		nasm yasm \
 		-y
 
 RUN git clone https://git.videolan.org/git/ffmpeg/nv-codec-headers.git
