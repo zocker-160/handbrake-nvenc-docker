@@ -22,34 +22,34 @@ WORKDIR /tmp
 # Compile HandBrake, libva and Intel Media SDK.
 RUN \
     apt update && \
-	apt install \
-        # build tools.
-        curl \
-        build-essential \
-        autoconf \
-        libtool \
-        m4 \
-        patch \
-        coreutils \
-        tar \
-        file \
-        git \
-        diffutils \
-        bash \
-        # misc libraries
-        libpciaccess-dev \
-        xz-utils \
-        # media libraries
-        libsamplerate-dev \
-        libass-dev \
-        # media codecs
-        libopus-dev \
-        libvorbis-dev \
-        # gtk
-        gtk+3.0-dev \
-        libdbus-glib-1-dev \
-        libnotify-dev \
-        libgudev-1.0-dev \
+	  apt install \
+    # build tools.
+    curl \
+    build-essential \
+    autoconf \
+    libtool \
+    m4 \
+    patch \
+    coreutils \
+    tar \
+    file \
+    git \
+    diffutils \
+    bash \
+    # misc libraries
+    libpciaccess-dev \
+    xz-utils \
+    # media libraries
+    libsamplerate-dev \
+    libass-dev \
+    # media codecs
+    libopus-dev \
+    libvorbis-dev \
+    # gtk
+    gtk+3.0-dev \
+    libdbus-glib-1-dev \
+    libnotify-dev \
+    libgudev-1.0-dev \
 		automake \
 		cmake \
 		debhelper \
