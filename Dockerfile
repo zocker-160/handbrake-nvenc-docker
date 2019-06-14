@@ -1,12 +1,10 @@
 # djaydev/HandBrake:latest
 
-# Pull base image.
+# Pull base build image.
 FROM debian:sid AS builder
 
 # Define software versions.
-# NOTE: x264 version 20171224 is the most recent one that doesn't crash.
 ARG HANDBRAKE_VERSION=1.2.2
-ARG X264_VERSION=20171224
 
 # Define software download URLs.
 ARG HANDBRAKE_URL=https://download.handbrake.fr/releases/${HANDBRAKE_VERSION}/HandBrake-${HANDBRAKE_VERSION}-source.tar.bz2
@@ -24,7 +22,7 @@ RUN \
     apt update && \
 	  apt install \
     # build tools.
-    curl build-essential autoconf libtool \
+    curl build-essential autoconf libtool-bin \
     m4 patch coreutils tar file git \
     diffutils bash \
     # misc libraries
@@ -43,10 +41,9 @@ RUN \
 		libmp3lame-dev libmpeg2-4-dev libogg-dev \
 		libopus-dev libsamplerate0-dev \
 		libspeex-dev libswresample-dev libswscale-dev \
-		libtheora-dev libtool libtool-bin \
+		libtheora-dev nasm yasm \
 		libvorbis-dev libvpx-dev libx264-dev \
 		libx265-dev libxml2-dev python \
-		nasm yasm \
 		-y
 
 RUN git clone https://git.videolan.org/git/ffmpeg/nv-codec-headers.git
@@ -83,6 +80,7 @@ RUN echo "Downloading HandBrake sources..." && \
                 && \
     /tmp/run_cmd -i 600 -m "HandBrake still compiling..." make --directory=build
 
+# Pull base image.
 FROM jlesage/baseimage-gui:debian-9
 
 WORKDIR /tmp
@@ -152,6 +150,7 @@ RUN \
 
 # Add files.
 COPY rootfs/ /
+# Copy HandBrake from base build image.
 COPY --from=builder /tmp/HandBrake/build/HandBrakeCLI /usr/local/bin
 COPY --from=builder /tmp/HandBrake/build/gtk/src /usr/bin
 
