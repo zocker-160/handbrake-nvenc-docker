@@ -137,16 +137,15 @@ RUN \
 
 # Generate and install favicons.
 RUN \
-  apt update && \
-  apt install --no-install-recommends npm -y && \
+    sed -i "/sid/s/deb http/#deb http/g" /etc/apt/sources.list && \
+    apt update && \
     APP_ICON_URL=https://raw.githubusercontent.com/jlesage/docker-templates/master/jlesage/images/handbrake-icon.png && \
     install_app_icon.sh "$APP_ICON_URL" && \
-	apt remove npm -y && \
-	apt-get autoremove -y && \
-  apt-get autoclean -y && \
-  apt-get clean -y && \
-  apt-get purge -y && \
-  rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+    apt-get autoremove -y && \
+    apt-get autoclean -y && \
+    apt-get clean -y && \
+    apt-get purge -y && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Add files.
 COPY rootfs/ /
