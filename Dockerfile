@@ -18,8 +18,7 @@ ARG HANDBRAKE_DEBUG_MODE=none
 WORKDIR /tmp
 
 # Compile HandBrake, libva and Intel Media SDK.
-RUN \
-    apt update && \
+RUN apt update && \
 	  apt install \
     # build tools.
     curl build-essential autoconf libtool-bin \
