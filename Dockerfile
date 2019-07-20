@@ -19,7 +19,7 @@ WORKDIR /tmp
 
 # Compile HandBrake, libva and Intel Media SDK.
 RUN apt update && \
-	  apt install \
+    apt install \
     # build tools.
     curl build-essential autoconf libtool-bin \
     m4 patch coreutils tar file git \
@@ -33,17 +33,17 @@ RUN apt update && \
     debhelper intltool libass-dev libavcodec-dev \
     libavfilter-dev libavformat-dev libavutil-dev \
     libbluray-dev libbz2-dev libdbus-glib-1-dev \
-		libdvdnav-dev libdvdread-dev libfontconfig1-dev \
-		libfreetype6-dev libgstreamer-plugins-base1.0-dev \
-		libgstreamer1.0-dev libgtk-3-dev \
-		libgudev-1.0-dev libjansson-dev liblzma-dev \
-		libmp3lame-dev libmpeg2-4-dev libogg-dev \
-		libopus-dev libsamplerate0-dev \
-		libspeex-dev libswresample-dev libswscale-dev \
-		libtheora-dev nasm yasm \
-		libvorbis-dev libvpx-dev libx264-dev \
-		libx265-dev libxml2-dev python \
-		-y
+    libdvdnav-dev libdvdread-dev libfontconfig1-dev \
+    libfreetype6-dev libgstreamer-plugins-base1.0-dev \
+    libgstreamer1.0-dev libgtk-3-dev \
+    libgudev-1.0-dev libjansson-dev liblzma-dev \
+    libmp3lame-dev libmpeg2-4-dev libogg-dev \
+    libopus-dev libsamplerate0-dev \
+    libspeex-dev libswresample-dev libswscale-dev \
+    libtheora-dev nasm yasm \
+    libvorbis-dev libvpx-dev libx264-dev \
+    libx265-dev libxml2-dev python \
+    -y
 
 RUN git clone https://git.videolan.org/git/ffmpeg/nv-codec-headers.git
 RUN cd nv-codec-headers && make && make install
@@ -86,34 +86,34 @@ WORKDIR /tmp
 
 # Install dependencies.
 RUN echo "deb http://deb.debian.org/debian sid main non-free contrib" >> /etc/apt/sources.list && \
-	  apt update && \
-	  DEBIAN_FRONTEND=noninteractive apt install --no-install-recommends \
-        # HandBrake dependencies
-        libass9 libavcodec58 \
-        libavfilter7 libavformat58 \
-        libavutil56 libbluray2 \
-        libc6 libdvdnav4 \
-        libdvdread4 libcairo2 \
-        libgstreamer-plugins-base1.0-0 \
-        libgdk-pixbuf2.0-0 libglib2.0-0 \
-        libgtk-3-0 libgstreamer1.0-0 \
-        libgudev-1.0-0 libjansson4 \
-        libpango-1.0-0 libsamplerate0 \
-        libswresample3 libswscale5 \
-        libtheora0 libvorbis0a \
-        libvorbisenc2 libx264-155 \
-        libx265-165 libxml2 \
-        xz-utils wget \
-        # For optical drive listing:
-        lsscsi \
-        # For watchfolder
-        bash \
-        coreutils \
-        yad \
-        findutils \
-        expect \
-		    tcl8.6 \
-		    -y && \
+    apt update && \
+    DEBIAN_FRONTEND=noninteractive apt install --no-install-recommends \
+    # HandBrake dependencies
+    libass9 libavcodec58 \
+    libavfilter7 libavformat58 \
+    libavutil56 libbluray2 \
+    libc6 libdvdnav4 \
+    libdvdread4 libcairo2 \
+    libgstreamer-plugins-base1.0-0 \
+    libgdk-pixbuf2.0-0 libglib2.0-0 \
+    libgtk-3-0 libgstreamer1.0-0 \
+    libgudev-1.0-0 libjansson4 \
+    libpango-1.0-0 libsamplerate0 \
+    libswresample3 libswscale5 \
+    libtheora0 libvorbis0a \
+    libvorbisenc2 libx264-155 \
+    libx265-165 libxml2 \
+    xz-utils wget \
+    # For optical drive listing:
+    lsscsi \
+    # For watchfolder
+    bash \
+    coreutils \
+    yad \
+    findutils \
+    expect \
+    tcl8.6 \
+    -y && \
     # To read encrypted DVDs
     wget http://www.deb-multimedia.org/pool/main/libd/libdvdcss/libdvdcss2_1.4.2-dmo1_amd64.deb && \
     apt install ./libdvdcss2_1.4.2-dmo1_amd64.deb -y && \
