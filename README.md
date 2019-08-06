@@ -1,17 +1,18 @@
 # docker-handbrake
 
-# Fork of jlesage/handbrake, adds NVENC, removes Intel Quick Sync
+## Fork of jlesage/handbrake, adds NVENC, removes Intel Quick Sync
 
 Handbrake GUI with Web browser and VNC access. Supports NVENC encoding
 
 Requires
-```
---runtime=nvidia
+
+```--runtime=nvidia
 -e NVIDIA_DRIVER_CAPABILITIES=all
 ```
+
 Example run
-```
-docker run -d \
+
+```docker run -d \
     --name=handbrake \
     --runtime=nvidia \
     -p 5800:5800 \
@@ -23,6 +24,7 @@ docker run -d \
     -e NVIDIA_DRIVER_CAPABILITIES=all
     djaydev/handbrake
 ```
+
 Where:
 
 - `/docker/appdata/handbrake`: This is where the application stores its configuration, log and any files needing persistency.
@@ -35,4 +37,4 @@ Where:
 Browse to `http://your-host-ip:5800` to access the HandBrake GUI. Files from the host appear under the `/storage` folder in the container.
 
 additional detailed info:
-https://hub.docker.com/r/jlesage/handbrake#docker-container-for-handbrake
+<https://hub.docker.com/r/jlesage/handbrake#docker-container-for-handbrake>
