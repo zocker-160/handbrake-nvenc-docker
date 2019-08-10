@@ -64,7 +64,6 @@ RUN echo "Downloading HandBrake sources..." && \
     # Download patches.
     echo "Downloading patches..." && \
     curl -# -L -o HandBrake/A00-hb-video-preset.patch https://raw.githubusercontent.com/jlesage/docker-handbrake/master/A00-hb-video-preset.patch && \
-
     # Compile HandBrake.
     echo "Compiling HandBrake..." && \
     cd HandBrake && \
