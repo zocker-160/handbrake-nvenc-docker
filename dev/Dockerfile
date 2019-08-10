@@ -99,7 +99,7 @@ RUN echo "deb http://deb.debian.org/debian sid main non-free contrib" >> /etc/ap
         findutils \
         expect \
         tcl8.6 \
-        -y && \
+        wget -y && \
     # To read encrypted DVDs
     wget http://www.deb-multimedia.org/pool/main/libd/libdvdcss/libdvdcss2_1.4.2-dmo1_amd64.deb && \
     apt install ./libdvdcss2_1.4.2-dmo1_amd64.deb -y && \
