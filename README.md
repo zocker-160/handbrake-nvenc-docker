@@ -12,7 +12,8 @@ Requires
 
 Example run
 
-```docker run -d \
+```shell
+    docker run -d \
     --name=handbrake \
     --runtime=nvidia \
     -p 5800:5800 \
