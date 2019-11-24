@@ -40,10 +40,7 @@ RUN apt install -y ./meson_0.47.2-1ubuntu2_all.deb
 RUN echo "Downloading HandBrake sources..."
 RUN curl --silent $HANDBRAKE_URL | jq -r '.assets[0].browser_download_url' | wget -i - -O "HandBrake-source.tar.bz2"
 RUN dtrx -n HandBrake-source.tar.bz2
-# Download helper
-RUN echo "Downloading helpers..." \
-RUN curl --progress-bar -L -o+ /HB/run_cmd https://raw.githubusercontent.com/jlesage/docker-mgmt-tools/master/run_cmd
-#RUN chmod +x /HB/run_cmd
+RUN rm -rf HandBrake-source.tar.bz2
 # Download patches
 RUN echo "Downloading patches..."
 RUN curl --progress-bar -L -o /HB/HandBrake-source/HandBrake-$HANDBRAKE_VERSION/A00-hb-video-preset.patch https://raw.githubusercontent.com/jlesage/docker-handbrake/master/A00-hb-video-preset.patch
@@ -58,7 +55,6 @@ RUN ./configure --prefix=/usr/local \
                 --launch-jobs=$(nproc) \
                 --launch
 
-#RUN /HB/run_cmd -i 600 -m "HandBrake still compiling..." make -j$(nproc) --directory=build install
 RUN make -j$(nproc) --directory=build install
 
 
