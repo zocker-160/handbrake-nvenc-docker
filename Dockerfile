@@ -3,7 +3,7 @@ FROM ubuntu:18.04 AS builder
 
 MAINTAINER zocker-160
 
-ENV HANDBRAKE_VERSION 1.3.0
+ENV HANDBRAKE_VERSION 1.3.1
 ENV HANDBRAKE_URL https://api.github.com/repos/HandBrake/HandBrake/releases/tags/$HANDBRAKE_VERSION
 ENV HANDBRAKE_DEBUG_MODE none
 
@@ -38,7 +38,7 @@ RUN apt install -y ./meson_0.47.2-1ubuntu2_all.deb
 
 # Download HandBrake sources
 RUN echo "Downloading HandBrake sources..."
-RUN curl --silent $HANDBRAKE_URL | jq -r '.assets[0].browser_download_url' | wget -i - -O "HandBrake-source.tar.bz2"
+RUN curl --silent $HANDBRAKE_URL | jq -r '.assets[6].browser_download_url' | wget -i - -O "HandBrake-source.tar.bz2"
 RUN dtrx -n HandBrake-source.tar.bz2
 RUN rm -rf HandBrake-source.tar.bz2
 # Download patches
