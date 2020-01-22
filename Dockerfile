@@ -3,8 +3,8 @@ FROM ubuntu:18.04 AS builder
 
 MAINTAINER zocker-160
 
-ENV HANDBRAKE_VERSION 1.3.1
-ENV HANDBRAKE_URL https://api.github.com/repos/HandBrake/HandBrake/releases/tags/$HANDBRAKE_VERSION
+ENV HANDBRAKE_VERSION master
+ENV HANDBRAKE_URL https://github.com/HandBrake/HandBrake/archive/$HANDBRAKE_VERSION.zip
 ENV HANDBRAKE_DEBUG_MODE none
 
 ENV DEBIAN_FRONTEND noninteractive
@@ -15,7 +15,7 @@ WORKDIR /HB
 # Compile HandBrake, libva and Intel Media SDK.
 RUN apt-get update
 RUN apt-get install -y \
-	jq dtrx \
+	jq dtrx gdebi \
     # build tools.
     curl build-essential autoconf libtool-bin \
     m4 patch coreutils tar file git wget diffutils \
@@ -33,19 +33,19 @@ RUN apt-get install -y \
     libtheora-dev nasm yasm xterm libnuma-dev numactl \
     libpciaccess-dev linux-headers-generic libx264-dev
 
-RUN wget http://mirrors.kernel.org/ubuntu/pool/universe/m/meson/meson_0.47.2-1ubuntu2_all.deb
-RUN apt install -y ./meson_0.47.2-1ubuntu2_all.deb
+# install meson build system
+RUN wget https://mirrors.edge.kernel.org/ubuntu/pool/universe/m/meson/meson_0.51.2-1_all.deb
+RUN gdebi -q -n ./meson_0.51.2-1_all.deb
 
 # Download HandBrake sources
 RUN echo "Downloading HandBrake sources..."
-RUN curl --silent $HANDBRAKE_URL | jq -r '.assets[6].browser_download_url' | wget -i - -O "HandBrake-source.tar.bz2"
-RUN dtrx -n HandBrake-source.tar.bz2
-RUN rm -rf HandBrake-source.tar.bz2
+RUN git clone https://github.com/HandBrake/HandBrake.git
 # Download patches
 RUN echo "Downloading patches..."
-RUN curl --progress-bar -L -o /HB/HandBrake-source/HandBrake-$HANDBRAKE_VERSION/A00-hb-video-preset.patch https://raw.githubusercontent.com/jlesage/docker-handbrake/master/A00-hb-video-preset.patch
+# RUN curl --progress-bar -L -o /HB/HandBrake-source/HandBrake-$HANDBRAKE_VERSION/A00-hb-video-preset.patch https://raw.githubusercontent.com/jlesage/docker-handbrake/master/A00-hb-video-preset.patch
+
 # Compile HandBrake
-WORKDIR /HB/HandBrake-source/HandBrake-$HANDBRAKE_VERSION
+WORKDIR /HB/HandBrake
 RUN echo "Compiling HandBrake..."
 RUN ./configure --prefix=/usr/local \
                 --debug=$HANDBRAKE_DEBUG_MODE \
