@@ -33,8 +33,8 @@ RUN apt-get install -y \
     libtheora-dev nasm yasm xterm libnuma-dev numactl \
     libpciaccess-dev linux-headers-generic libx264-dev
 
-RUN wget http://mirrors.kernel.org/ubuntu/pool/universe/m/meson/meson_0.47.2-1ubuntu2_all.deb
-RUN apt install -y ./meson_0.47.2-1ubuntu2_all.deb
+RUN wget https://mirrors.edge.kernel.org/ubuntu/pool/universe/m/meson/meson_0.51.2-1_all.deb
+RUN apt install -y ./meson_0.51.2-1_all.deb
 
 # Download HandBrake sources
 RUN echo "Downloading HandBrake sources..."
