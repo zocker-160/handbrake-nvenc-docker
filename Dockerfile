@@ -65,6 +65,11 @@ ENV DEBIAN_FRONTEND noninteractive
 ENV NVIDIA_VISIBLE_DEVICES all
 ENV NVIDIA_DRIVER_CAPABILITIES all
 
+ENV APP_NAME="HandBrake"
+ENV AUTOMATED_CONVERSION_PRESET="Very Fast 1080p30"
+ENV AUTOMATED_CONVERSION_FORMAT="mp4"
+
+
 WORKDIR /tmp
 
 # Install dependencies.
@@ -121,14 +126,6 @@ RUN \
 
 # Copy HandBrake from base build image.
 COPY --from=builder /usr/local /usr
-
-
-# Set environment variables.
-ENV APP_NAME="HandBrake" \
-    AUTOMATED_CONVERSION_PRESET="Very Fast 1080p30" \
-    AUTOMATED_CONVERSION_FORMAT="mp4" \
-    NVIDIA_VISIBLE_DEVICES=all \
-    NVIDIA_DRIVER_CAPABILITIES=all
 
 # Define mountable directories.
 VOLUME ["/config"]
