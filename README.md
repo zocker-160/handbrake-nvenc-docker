@@ -37,5 +37,11 @@ Browse to `http://your-host-ip:5800` to access the HandBrake GUI.
 
 Files from the host appear under the `/storage` folder in the container.
 
+#### Optional parameters
+
+- `-e AUTOMATED_CONVERSION_PRESET` (default: `"Very Fast 1080p30"`)
+- `-e AUTOMATED_CONVERSION_FORMAT` (default: `"mp4"`)
+- `-e APP_NAME` (default: `"Handbrake"`)
+
 additional detailed info:
 <https://hub.docker.com/r/jlesage/handbrake#docker-container-for-handbrake>
