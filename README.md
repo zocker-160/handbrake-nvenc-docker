@@ -2,9 +2,9 @@
 
 ### Fork of jlesage/handbrake, adds NVENC Hardware encoding
 
-In order to make this image work, you need to have [nvidia-docker2](https://github.com/NVIDIA/nvidia-docker) installed in order to enable passthru to the nvidia card(s).
+In order to make this image work, you need Docker >= 19.03 and the latest [NVIDIA driver](https://github.com/NVIDIA/nvidia-docker/wiki/Frequently-Asked-Questions#how-do-i-install-the-nvidia-driver) driver installed on your host system.
 
-You will also need to have the [Nvidia-CUDA-toolkit](https://developer.nvidia.com/cuda-downloads?target_os=Linux&target_arch=x86_64)  to be installed.
+You also need to have the [nvidia-container-toolkit](https://github.com/NVIDIA/nvidia-docker#ubuntu-16041804-debian-jessiestretchbuster) installed.
 
 ---
 
@@ -14,24 +14,24 @@ You will also need to have the [Nvidia-CUDA-toolkit](https://developer.nvidia.co
 Launch the HandBrake docker container with the following command:
 ```
 docker run -d -t \
-    --name=handbrake \
-    --runtime=nvidia \
-    -p 5800:5800 \
-    -v /docker/appdata/handbrake:/config:rw \
-    -v $HOME:/storage:ro \
-    -v $HOME/HandBrake/watch:/watch:rw \
-    -v $HOME/HandBrake/output:/output:rw \
+	--name=handbrake \
+	-p 5800:5800 \
+	-v <replace/the/path>:/config:rw \
+	-v <replace/the/path>:/storage:ro \
+	-v <replace/the/path>:/watch:rw \
+	-v <replace/the/path>:/output:rw \
+	--gpus all \
     zocker160/handbrake-nvenc:latest
 ```
 #### Usage
 
-- `--runtime=nvidia` this enables the passthrough to the GPU(s)
-- `/docker/appdata/handbrake`: This is where the application stores its configuration, log and any files needing persistency.
+- `--gpus all` this enables the passthrough to the GPU(s)
 - `Port 5800`: for WebGUI
 - `Port 5900`: for VNC client connection
-- `$HOME`: This location contains files from your host that need to be accessible by the application.
-- `$HOME/HandBrake/watch`: This is where videos to be automatically converted are located.
-- `$HOME/HandBrake/output`: This is where automatically converted video files are written.
+- `/config`: This is where the application stores its configuration, log and any files needing persistency.
+- `/storage`: This location contains files from your host that need to be accessible by the application.
+- `/watch`: This is where videos to be automatically converted are located.
+- `/output`: This is where automatically converted video files are written.
 
 Browse to `http://your-host-ip:5800` to access the HandBrake GUI. 
 
