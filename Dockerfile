@@ -4,8 +4,10 @@ FROM ubuntu:18.04 AS builder
 MAINTAINER zocker-160
 
 ENV HANDBRAKE_VERSION 1.3.1
-ENV HANDBRAKE_URL https://api.github.com/repos/HandBrake/HandBrake/releases/tags/$HANDBRAKE_VERSION
 ENV HANDBRAKE_DEBUG_MODE none
+
+ENV HANDBRAKE_URL https://api.github.com/repos/HandBrake/HandBrake/releases/tags/$HANDBRAKE_VERSION
+ENV MESON_URL https://mirrors.edge.kernel.org/ubuntu/pool/universe/m/meson/meson_0.51.2-1_all.deb
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -33,8 +35,8 @@ RUN apt-get install -y \
     libtheora-dev nasm yasm xterm libnuma-dev numactl \
     libpciaccess-dev linux-headers-generic libx264-dev
 
-RUN wget http://mirrors.kernel.org/ubuntu/pool/universe/m/meson/meson_0.47.2-1ubuntu2_all.deb
-RUN apt install -y ./meson_0.47.2-1ubuntu2_all.deb
+RUN wget $MESON_URL
+RUN apt install -y ./meson_0.51.2-1_all.deb
 
 # Download HandBrake sources
 RUN echo "Downloading HandBrake sources..."
@@ -65,6 +67,14 @@ ENV DEBIAN_FRONTEND noninteractive
 ENV NVIDIA_VISIBLE_DEVICES all
 ENV NVIDIA_DRIVER_CAPABILITIES all
 
+ENV APP_NAME="HandBrake"
+ENV AUTOMATED_CONVERSION_PRESET="Very Fast 1080p30"
+ENV AUTOMATED_CONVERSION_FORMAT="mp4"
+# URLs
+ENV APP_ICON_URL https://raw.githubusercontent.com/jlesage/docker-templates/master/jlesage/images/handbrake-icon.png
+ENV DVDCSS_URL http://www.deb-multimedia.org/pool/main/libd/libdvdcss/libdvdcss2_1.4.2-dmo1_amd64.deb
+
+
 WORKDIR /tmp
 
 # Install dependencies.
@@ -85,7 +95,7 @@ RUN apt-get install -y --no-install-recommends \
         tcl8.6 \
         wget
 # To read encrypted DVDs
-RUN wget http://www.deb-multimedia.org/pool/main/libd/libdvdcss/libdvdcss2_1.4.2-dmo1_amd64.deb
+RUN wget $DVDCSS_URL
 RUN apt install -y ./libdvdcss2_1.4.2-dmo1_amd64.deb
 # install scripts and stuff from upstream Handbrake docker image
 RUN git config --global http.sslVerify false
@@ -111,8 +121,7 @@ RUN \
 # Generate and install favicons.
 RUN \
     apt-get update && \
-    APP_ICON_URL=https://raw.githubusercontent.com/jlesage/docker-templates/master/jlesage/images/handbrake-icon.png && \
-    install_app_icon.sh "$APP_ICON_URL" && \
+	install_app_icon.sh "$APP_ICON_URL" && \
     apt-get autoremove -y && \
     apt-get autoclean -y && \
     apt-get clean -y && \
@@ -121,14 +130,6 @@ RUN \
 
 # Copy HandBrake from base build image.
 COPY --from=builder /usr/local /usr
-
-
-# Set environment variables.
-ENV APP_NAME="HandBrake" \
-    AUTOMATED_CONVERSION_PRESET="Very Fast 1080p30" \
-    AUTOMATED_CONVERSION_FORMAT="mp4" \
-    NVIDIA_VISIBLE_DEVICES=all \
-    NVIDIA_DRIVER_CAPABILITIES=all
 
 # Define mountable directories.
 VOLUME ["/config"]
