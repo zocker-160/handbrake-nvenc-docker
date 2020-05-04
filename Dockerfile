@@ -6,8 +6,10 @@ MAINTAINER zocker-160
 ENV HANDBRAKE_VERSION 1.3.2
 ENV HANDBRAKE_DEBUG_MODE none
 
+#ENV MESON_VERSION meson_0.54.1-1ubuntu1_all.deb
+
 ENV HANDBRAKE_URL https://api.github.com/repos/HandBrake/HandBrake/releases/tags/$HANDBRAKE_VERSION
-ENV MESON_URL https://mirrors.edge.kernel.org/ubuntu/pool/universe/m/meson/meson_0.51.2-1_all.deb
+ENV MESON_URL https://mirrors.edge.kernel.org/ubuntu/pool/universe/m/meson/$MESON_VERSION
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -33,10 +35,14 @@ RUN apt-get install -y \
     libjansson-dev liblzma-dev libappindicator-dev\
     libmp3lame-dev libogg-dev libglib2.0-dev ninja-build \
     libtheora-dev nasm yasm xterm libnuma-dev numactl \
-    libpciaccess-dev linux-headers-generic libx264-dev
+    libpciaccess-dev linux-headers-generic libx264-dev \
+    # pip for meson
+    python3-pip
 
-RUN wget $MESON_URL
-RUN apt install -y ./meson_0.51.2-1_all.deb
+# install meson from pip
+RUN pip3 install meson
+#RUN wget $MESON_URL
+#RUN apt install -y ./$MESON_VERSION
 
 # Download HandBrake sources
 RUN echo "Downloading HandBrake sources..."
