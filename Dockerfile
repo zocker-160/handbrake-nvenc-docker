@@ -94,8 +94,11 @@ RUN apt-get install -y --no-install-recommends \
 RUN apt-get install -y \
 	libcairo2 libgtk-3-0 libgudev-1.0-0 libjansson4 libnotify4 libtheora0 libvorbis0a libvorbisenc2 speex libopus0 libxml2 numactl xz-utils git libdbus-glib-1-2 lame x264 libass9
 # Handbrake GUI dependencies
+#RUN apt-get install -y \
+#	intltool libappindicator3-1 libdbus-glib-1-dev libglib2.0-dev libgstreamer1.0 libgstreamer-plugins-base1.0
 RUN apt-get install -y \
-	intltool libappindicator3-1 libdbus-glib-1-dev libglib2.0-dev libgstreamer1.0 libgstreamer-plugins-base1.0 libgtk-3-dev libgudev-1.0 libnotify4 gstreamer1.0-tools
+	libgstreamer-plugins-base1.0
+
 
 # To read encrypted DVDs
 RUN wget $DVDCSS_URL
