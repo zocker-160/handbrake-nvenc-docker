@@ -3,10 +3,12 @@ FROM debian:10 AS builder
 
 MAINTAINER zocker-160
 
-ENV HANDBRAKE_VERSION 1.3.2
+ENV HANDBRAKE_VERSION 1.3.3
+ENV HANDBRAKE_VERSION_BRANCH 1.3.x
 ENV HANDBRAKE_DEBUG_MODE none
 
 ENV HANDBRAKE_URL https://api.github.com/repos/HandBrake/HandBrake/releases/tags/$HANDBRAKE_VERSION
+ENV HANDBRAKE_URL_GIT https://github.com/HandBrake/HandBrake.git
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -38,15 +40,21 @@ RUN pip3 install meson
 
 # Download HandBrake sources
 RUN echo "Downloading HandBrake sources..."
-RUN curl --silent $HANDBRAKE_URL | jq -r '.assets[0].browser_download_url' | wget -i - -O "HandBrake-source.tar.bz2"
-RUN dtrx -n HandBrake-source.tar.bz2
-RUN rm -rf HandBrake-source.tar.bz2
+# RUN curl --silent $HANDBRAKE_URL | jq -r '.assets[0].browser_download_url' | wget -i - -O "HandBrake-source.tar.bz2"
+RUN git clone $HANDBRAKE_URL_GIT
+# RUN dtrx -n HandBrake-source.tar.bz2
+# RUN rm -rf HandBrake-source.tar.bz2
 # Download patches
-RUN echo "Downloading patches..."
-RUN curl --progress-bar -L -o /HB/HandBrake-source/HandBrake-$HANDBRAKE_VERSION/A00-hb-video-preset.patch https://raw.githubusercontent.com/jlesage/docker-handbrake/master/A00-hb-video-preset.patch
+# RUN echo "Downloading patches..."
+# RUN curl --progress-bar -L -o /HB/HandBrake-source/HandBrake-$HANDBRAKE_VERSION/A00-hb-video-preset.patch https://raw.githubusercontent.com/jlesage/docker-handbrake/master/A00-hb-video-preset.patch
 
 # Compile HandBrake
-WORKDIR /HB/HandBrake-source/HandBrake-$HANDBRAKE_VERSION
+# WORKDIR /HB/HandBrake-source/HandBrake-$HANDBRAKE_VERSION_BRANCH
+WORKDIR /HB/HandBrake
+
+RUN git checkout $HANDBRAKE_VERSION_BRANCH
+RUN ./scripts/repo-info.sh > version.txt
+
 RUN echo "Compiling HandBrake..."
 RUN ./configure --prefix=/usr/local \
                 --debug=$HANDBRAKE_DEBUG_MODE \
