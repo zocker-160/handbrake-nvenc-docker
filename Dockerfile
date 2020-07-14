@@ -96,18 +96,39 @@ RUN apt-get install -y --no-install-recommends \
         findutils \
         expect \
         tcl8.6 \
-        wget
+        wget \
+        git
         
 # Handbrake dependencies
 RUN apt-get install -y \
-	libcairo2 libgtk-3-0 libgudev-1.0-0 libjansson4 libnotify4 libtheora0 libvorbis0a libvorbisenc2 speex libopus0 libxml2 numactl xz-utils git libdbus-glib-1-2 lame x264 libass9
-# Handbrake GUI dependencies
-#RUN apt-get install -y \
-#	intltool libappindicator3-1 libdbus-glib-1-dev libglib2.0-dev libgstreamer1.0 libgstreamer-plugins-base1.0
-RUN apt-get install -y \
-	libgstreamer-plugins-base1.0
-
-
+	libass9 \
+	libavcodec-extra58 \
+	libavfilter-extra7 \
+	libavformat58 \
+	libavutil56 \
+	libbluray2 \
+	libc6 \
+	libcairo2 \
+	libdvdnav4 \
+	libdvdread4 \
+	libgdk-pixbuf2.0-0 \
+	libglib2.0-0 \
+	libgstreamer-plugins-base1.0-0 \
+	libgstreamer1.0-0 \
+	libgtk-3-0 \
+	libgudev-1.0-0 \
+	libjansson4 \
+	libpango-1.0-0 \
+	libsamplerate0 \
+	libswresample3 \
+	libswscale5 \
+	libtheora0 \
+	libvorbis0a \
+	libvorbisenc2 \
+	libx264-155 \
+	libx265-165 \
+	libxml2
+	
 # To read encrypted DVDs
 RUN wget $DVDCSS_URL
 RUN apt install -y ./libdvdcss2_1.4.2-dmo1_amd64.deb
