@@ -97,7 +97,8 @@ RUN apt-get install -y --no-install-recommends \
         expect \
         tcl8.6 \
         wget \
-        git
+        git \
+        ncdu # for debugging only
         
 # Handbrake dependencies
 RUN apt-get install -y \
@@ -161,7 +162,9 @@ RUN \
     apt-get autoclean -y && \
     apt-get clean -y && \
     apt-get purge -y && \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+    rm -rf /var/cache/* /var/log/* /var/www/* /var/lib/dpkg/* /var/lib/apt/* /tmp/* /var/tmp/* \
+    rm -rf /usr/share/icons/* /usr/lib/python3.7/* \
+    rm -rf /usr/lib/x86_64-linux-gnu/libnvoptix.so.* /usr/lib/x86_64-linux-gnu/libLLVM* /usr/lib/x86_64-linux-gnu/libnvidia-rtcore.so.* /usr/lib/x86_64-linux-gnu/libnvidia-compiler.so.*
 
 # Copy HandBrake from base build image
 COPY --from=builder /usr/local /usr
