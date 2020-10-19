@@ -2,27 +2,28 @@
 
 ### Fork of jlesage/handbrake, adds NVENC Hardware encoding
 
-In order to make this image work, you need Docker >= 19.03 and the latest [NVIDIA driver](https://github.com/NVIDIA/nvidia-docker/wiki/Frequently-Asked-Questions#how-do-i-install-the-nvidia-driver) driver installed on your host system.
+In order to make this image work, you need Docker >= 19.03 and the latest [NVIDIA driver](https://github.com/NVIDIA/nvidia-docker/wiki/Frequently-Asked-Questions#how-do-i-install-the-nvidia-driver) and `nvidia-docker2` installed on your host system.
 
-You also need to have the [nvidia-container-toolkit](https://github.com/NVIDIA/nvidia-docker#ubuntu-16041804-debian-jessiestretchbuster) installed.
+An official guide by Nvidia can be found [here](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#installing-on-ubuntu-and-debian).
 
 ---
 
 **NOTE:** The Docker command provided in this quick start is given as an example and parameters should be adjusted to your need.
 
-
 Launch the HandBrake docker container with the following command:
+
 ```
 docker run -d -t \
-	--name=handbrake \
-	-p 5800:5800 \
-	-v <replace/the/path>:/config:rw \
-	-v <replace/the/path>:/storage:ro \
-	-v <replace/the/path>:/watch:rw \
-	-v <replace/the/path>:/output:rw \
-	--gpus all \
+    --name=handbrake \
+    -p 5800:5800 \
+    -v <replace/the/path>:/config:rw \
+    -v <replace/the/path>:/storage:ro \
+    -v <replace/the/path>:/watch:rw \
+    -v <replace/the/path>:/output:rw \
+    --gpus all \
     zocker160/handbrake-nvenc:latest
 ```
+
 #### Usage
 
 - `--gpus all` this enables the passthrough to the GPU(s)
