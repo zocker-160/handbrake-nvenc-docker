@@ -87,48 +87,48 @@ WORKDIR /tmp
 # Install dependencies
 RUN apt-get update
 RUN apt-get install -y --no-install-recommends \
-        # For optical drive listing:
-        lsscsi \
-        # For watchfolder
-        bash \
-        coreutils \
-        yad \
-        findutils \
-        expect \
-        tcl8.6 \
-        wget \
-        git
-        
+    # For optical drive listing:
+    lsscsi \
+    # For watchfolder
+    bash \
+    coreutils \
+    yad \
+    findutils \
+    expect \
+    tcl8.6 \
+    wget \
+    git
+    
 # Handbrake dependencies
 RUN apt-get install -y \
-	libass9 \
-	libavcodec-extra58 \
-	libavfilter-extra7 \
-	libavformat58 \
-	libavutil56 \
-	libbluray2 \
-	libc6 \
-	libcairo2 \
-	libdvdnav4 \
-	libdvdread4 \
-	libgdk-pixbuf2.0-0 \
-	libglib2.0-0 \
-	libgstreamer-plugins-base1.0-0 \
-	libgstreamer1.0-0 \
-	libgtk-3-0 \
-	libgudev-1.0-0 \
-	libjansson4 \
-	libpango-1.0-0 \
-	libsamplerate0 \
-	libswresample3 \
-	libswscale5 \
-	libtheora0 \
-	libvorbis0a \
-	libvorbisenc2 \
-	libx264-155 \
-	libx265-165 \
-	libxml2
-	
+    libass9 \
+    libavcodec-extra58 \
+    libavfilter-extra7 \
+    libavformat58 \
+    libavutil56 \
+    libbluray2 \
+    libc6 \
+    libcairo2 \
+    libdvdnav4 \
+    libdvdread4 \
+    libgdk-pixbuf2.0-0 \
+    libglib2.0-0 \
+    libgstreamer-plugins-base1.0-0 \
+    libgstreamer1.0-0 \
+    libgtk-3-0 \
+    libgudev-1.0-0 \
+    libjansson4 \
+    libpango-1.0-0 \
+    libsamplerate0 \
+    libswresample3 \
+    libswscale5 \
+    libtheora0 \
+    libvorbis0a \
+    libvorbisenc2 \
+    libx264-155 \
+    libx265-165 \
+    libxml2
+
 # To read encrypted DVDs
 RUN wget $DVDCSS_URL
 RUN apt install -y ./libdvdcss2_1.4.2-dmo1_amd64.deb
@@ -156,7 +156,7 @@ RUN \
 # Generate and install favicons
 RUN \
     apt-get update && \
-	install_app_icon.sh "$APP_ICON_URL" && \
+    install_app_icon.sh "$APP_ICON_URL" && \
     apt-get autoremove -y && \
     apt-get autoclean -y && \
     apt-get clean -y && \
