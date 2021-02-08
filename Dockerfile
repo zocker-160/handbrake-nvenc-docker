@@ -61,6 +61,9 @@ RUN ./configure --prefix=/usr/local \
                 --disable-gtk-update-checks \
                 --enable-fdk-aac \
                 --enable-x265 \
+                --enable-numa \
+                --enable-nvenc \
+                --enable-qsv \
                 --launch-jobs=$(nproc) \
                 --launch
 
