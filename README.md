@@ -10,6 +10,13 @@ An official guide by Nvidia can be found [here](https://docs.nvidia.com/datacent
 
 **NOTE:** The Docker command provided in this quick start is given as an example and parameters should be adjusted to your need.
 
+### Supported tags
+
+| tag             | Handbrake version |
+|:---------------:|:-----------------:|
+| `14x`, `latest` | 1.4.1             |
+| `13x`           | 1.3.x-git         |
+
 Launch the HandBrake docker container with the following command:
 
 ```
