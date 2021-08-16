@@ -1,5 +1,7 @@
 # Handbrake in a Docker container with nvenc support
 
+[![Dockerimage dev](https://github.com/zocker-160/handbrake-nvenc-docker/actions/workflows/dockerimage-dev.yml/badge.svg)](https://github.com/zocker-160/handbrake-nvenc-docker/actions/workflows/dockerimage-dev.yml)
+
 ### Fork of jlesage/handbrake, adds NVENC Hardware encoding
 
 In order to make this image work, you need Docker >= 19.03 and the latest [NVIDIA driver](https://github.com/NVIDIA/nvidia-docker/wiki/Frequently-Asked-Questions#how-do-i-install-the-nvidia-driver) and `nvidia-docker2` installed on your host system.
