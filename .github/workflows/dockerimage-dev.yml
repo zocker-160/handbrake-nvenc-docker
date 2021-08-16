@@ -1,4 +1,4 @@
-name: Dockerimage dev
+name: Dockerimage testing
 
 on:
   push:
