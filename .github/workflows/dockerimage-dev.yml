@@ -1,0 +1,24 @@
+name: Dockerimage latest
+
+on:
+  push:
+    branches: 
+      - dev
+
+jobs:
+  handbrake13x:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        ref: 'dev'
+    - name: Build the Docker image
+      env:
+        HUB_NAME: ${{ secrets.DOCKER_NAME }}
+        HUB_KEY: ${{ secrets.DOCKER_TOKEN }}
+      run: |  
+        docker login -u $HUB_NAME -p $HUB_KEY
+        docker build . --pull --no-cache --file Dockerfile.13x --tag zocker160/handbrake-nvenc:testing
+        
+        docker push zocker160/handbrake-nvenc:testing
