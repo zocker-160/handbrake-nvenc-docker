@@ -58,7 +58,8 @@ RUN make -j$(nproc) --directory=build install
 
 
 ##########################################################################################
-# Pull base image
+
+## Pull base image
 FROM jlesage/baseimage-gui:debian-10
 
 ENV DEBIAN_FRONTEND noninteractive
@@ -68,10 +69,12 @@ ENV NVIDIA_DRIVER_CAPABILITIES all
 ENV APP_NAME="HandBrake"
 ENV AUTOMATED_CONVERSION_PRESET="Very Fast 1080p30"
 ENV AUTOMATED_CONVERSION_FORMAT="mp4"
-# URLs
-ENV APP_ICON_URL https://raw.githubusercontent.com/jlesage/docker-templates/master/jlesage/images/handbrake-icon.png
-ENV DVDCSS_URL http://www.deb-multimedia.org/pool/main/libd/libdvdcss/libdvdcss2_1.4.2-dmo1_amd64.deb
 
+## URLs
+ENV APP_ICON_URL https://raw.githubusercontent.com/jlesage/docker-templates/master/jlesage/images/handbrake-icon.png
+
+ENV DVDCSS_NAME libdvd-pkg_1.4.2-1-1_all.deb
+ENV DVDCSS_URL http://ftp.br.debian.org/debian/pool/contrib/libd/libdvd-pkg/$DVDCSS_NAME
 
 WORKDIR /tmp
 
@@ -121,13 +124,14 @@ RUN apt-get install -y \
     libxml2
 
 ## To read encrypted DVDs install libdvdcss
-#RUN wget $DVDCSS_URL
-#RUN apt install -y ./libdvdcss2_1.4.2-dmo1_amd64.deb
-RUN dpkg-reconfigure libdvd-pkg
+RUN wget $DVDCSS_URL
+RUN apt-get install -y ./$DVDCSS_NAME
+
 ## install scripts and stuff from upstream Handbrake docker image
 RUN git config --global http.sslVerify false
 RUN git clone https://github.com/jlesage/docker-handbrake.git
 RUN cp -r docker-handbrake/rootfs/* /
+
 ## Cleanup
 RUN rm -rf docker-handbrake
 RUN apt-get remove wget git -y && \
