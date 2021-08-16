@@ -1,0 +1,24 @@
+name: Dockerimage 1.3.x
+
+on:
+  push:
+    branches: 
+      - master
+
+jobs:
+  handbrake:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        ref: 'master'
+    - name: Build the Docker image
+      env:
+        HUB_NAME: ${{ secrets.DOCKER_NAME }}
+        HUB_KEY: ${{ secrets.DOCKER_TOKEN }}
+      run: |  
+        docker login -u $HUB_NAME -p $HUB_KEY
+        docker build . --pull --no-cache --file Dockerfile.13x --tag zocker160/handbrake-nvenc:13x
+        
+        docker push zocker160/handbrake-nvenc:13x

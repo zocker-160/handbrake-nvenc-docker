@@ -1,2 +1,4 @@
 
 .directory
+
+push_readme_to_dockerhub.sh

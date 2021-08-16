@@ -2,8 +2,8 @@ FROM debian:10 AS builder
 
 MAINTAINER zocker-160
 
-ENV HANDBRAKE_VERSION_TAG 1.4.1
-ENV HANDBRAKE_VERSION_BRANCH 1.4.x
+ENV HANDBRAKE_VERSION_TAG 1.3.3
+ENV HANDBRAKE_VERSION_BRANCH 1.3.x
 ENV HANDBRAKE_DEBUG_MODE none
 
 ENV HANDBRAKE_URL https://api.github.com/repos/HandBrake/HandBrake/releases/tags/$HANDBRAKE_VERSION
@@ -17,7 +17,7 @@ WORKDIR /HB
 ## Prepare
 RUN apt-get update
 RUN apt-get install -y \
-    curl diffutils file coreutils m4 xz-utils nasm python3 python3-pip appstream
+    curl diffutils file coreutils m4 xz-utils nasm python3 python3-pip
 
 ## Install dependencies
 RUN apt-get install -y \
@@ -40,7 +40,7 @@ RUN git clone $HANDBRAKE_URL_GIT
 ## Compile HandBrake
 WORKDIR /HB/HandBrake
 
-RUN git checkout $HANDBRAKE_VERSION_TAG
+RUN git checkout $HANDBRAKE_VERSION_BRANCH
 RUN ./scripts/repo-info.sh > version.txt
 
 RUN echo "Compiling HandBrake..."
@@ -50,7 +50,7 @@ RUN ./configure --prefix=/usr/local \
                 --enable-x265 \
                 --enable-numa \
                 --enable-nvenc \
-                --enable-qsv \
+                --enable-qsv \                
                 --launch-jobs=$(nproc) \
                 --launch
 
@@ -62,9 +62,9 @@ RUN make -j$(nproc) --directory=build install
 ## Pull base image
 FROM jlesage/baseimage-gui:debian-10
 
+ENV DEBIAN_FRONTEND noninteractive
 ENV NVIDIA_VISIBLE_DEVICES all
 ENV NVIDIA_DRIVER_CAPABILITIES all
-ENV DEBIAN_FRONTEND noninterac1tive
 
 ENV APP_NAME="HandBrake"
 ENV AUTOMATED_CONVERSION_PRESET="Very Fast 1080p30"
@@ -78,7 +78,7 @@ ENV DVDCSS_URL http://ftp.br.debian.org/debian/pool/contrib/libd/libdvd-pkg/$DVD
 
 WORKDIR /tmp
 
-## Runtime dependencies
+# Install dependencies
 RUN apt-get update
 RUN apt-get install -y --no-install-recommends \
     # For optical drive listing:
@@ -93,7 +93,7 @@ RUN apt-get install -y --no-install-recommends \
     wget \
     git
     
-## Handbrake dependencies
+# Handbrake dependencies
 RUN apt-get install -y \
     libass9 \
     libavcodec-extra58 \
@@ -121,13 +121,11 @@ RUN apt-get install -y \
     libvorbisenc2 \
     libx264-155 \
     libx265-165 \
-    libxml2 \
-    libturbojpeg0
+    libxml2
 
 ## To read encrypted DVDs install libdvdcss
 RUN wget $DVDCSS_URL
 RUN apt-get install -y ./$DVDCSS_NAME
-RUN rm $DVDCSS_NAME
 
 ## install scripts and stuff from upstream Handbrake docker image
 RUN git config --global http.sslVerify false
