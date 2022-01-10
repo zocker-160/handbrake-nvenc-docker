@@ -3,6 +3,7 @@
 [![Dockerimage dev](https://github.com/zocker-160/handbrake-nvenc-docker/actions/workflows/dockerimage-dev.yml/badge.svg)](https://github.com/zocker-160/handbrake-nvenc-docker/actions/workflows/dockerimage-dev.yml)
 [![Dockerimage 1.3.x](https://github.com/zocker-160/handbrake-nvenc-docker/actions/workflows/dockerimage-13x.yml/badge.svg)](https://github.com/zocker-160/handbrake-nvenc-docker/actions/workflows/dockerimage-13x.yml)
 [![Dockerimage 1.4.x](https://github.com/zocker-160/handbrake-nvenc-docker/actions/workflows/dockerimage-14x.yml/badge.svg)](https://github.com/zocker-160/handbrake-nvenc-docker/actions/workflows/dockerimage-14x.yml)
+[![Dockerimage 1.5.x](https://github.com/zocker-160/handbrake-nvenc-docker/actions/workflows/dockerimage-15x.yml/badge.svg)](https://github.com/zocker-160/handbrake-nvenc-docker/actions/workflows/dockerimage-15x.yml)
 
 ### Fork of jlesage/handbrake, adds NVENC Hardware encoding
 
