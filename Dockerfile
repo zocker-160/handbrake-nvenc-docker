@@ -1,9 +1,9 @@
-FROM debian:10 AS builder
+FROM debian:11 AS builder
 
 MAINTAINER zocker-160
 
-ENV HANDBRAKE_VERSION_TAG 1.4.2
-ENV HANDBRAKE_VERSION_BRANCH 1.4.x
+ENV HANDBRAKE_VERSION_TAG 1.5.0
+ENV HANDBRAKE_VERSION_BRANCH 1.5.x
 ENV HANDBRAKE_DEBUG_MODE none
 
 ENV HANDBRAKE_URL https://api.github.com/repos/HandBrake/HandBrake/releases/tags/$HANDBRAKE_VERSION
@@ -21,14 +21,14 @@ RUN apt-get install -y \
 
 ## Install dependencies
 RUN apt-get install -y \
-    autoconf automake build-essential cmake git libass-dev libbz2-dev libfontconfig1-dev libfreetype6-dev libfribidi-dev libharfbuzz-dev libjansson-dev liblzma-dev libmp3lame-dev libnuma-dev libogg-dev libopus-dev libsamplerate-dev libspeex-dev libtheora-dev libtool libtool-bin libturbojpeg0-dev libvorbis-dev libx264-dev libxml2-dev libvpx-dev m4 make nasm ninja-build patch pkg-config python tar zlib1g-dev
+    autoconf automake build-essential cmake git libass-dev libbz2-dev libfontconfig1-dev libfreetype6-dev libfribidi-dev libharfbuzz-dev libjansson-dev liblzma-dev libmp3lame-dev libnuma-dev libogg-dev libopus-dev libsamplerate-dev libspeex-dev libtheora-dev libtool libtool-bin libturbojpeg0-dev libvorbis-dev libx264-dev libxml2-dev libvpx-dev m4 make nasm ninja-build patch pkg-config python tar zlib1g-dev autopoint
     
 ## Intel CSV dependencies
 RUN apt-get install -y libva-dev libdrm-dev
     
 ## GTK GUI dependencies
 RUN apt-get install -y \ 
-    intltool libappindicator-dev libdbus-glib-1-dev libglib2.0-dev libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev libgtk-3-dev libgudev-1.0-dev libnotify-dev libwebkit2gtk-4.0-dev
+    intltool libayatana-appindicator-dev libdbus-glib-1-dev libglib2.0-dev libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev libgtk-3-dev libgudev-1.0-dev libnotify-dev libwebkit2gtk-4.0-dev
 
 ## Install meson from pip
 RUN pip3 install -U meson
@@ -60,11 +60,11 @@ RUN make -j$(nproc) --directory=build install
 ##########################################################################################
 
 ## Pull base image
-FROM jlesage/baseimage-gui:debian-10
+FROM jlesage/baseimage-gui:debian-11
 
 ENV NVIDIA_VISIBLE_DEVICES all
 ENV NVIDIA_DRIVER_CAPABILITIES all
-ENV DEBIAN_FRONTEND noninterac1tive
+ENV DEBIAN_FRONTEND noninteractive
 
 ENV APP_NAME="HandBrake"
 ENV AUTOMATED_CONVERSION_PRESET="Very Fast 1080p30"
@@ -104,7 +104,7 @@ RUN apt-get install -y \
     libc6 \
     libcairo2 \
     libdvdnav4 \
-    libdvdread4 \
+    libdvdread8 \
     libgdk-pixbuf2.0-0 \
     libglib2.0-0 \
     libgstreamer-plugins-base1.0-0 \
@@ -119,8 +119,8 @@ RUN apt-get install -y \
     libtheora0 \
     libvorbis0a \
     libvorbisenc2 \
-    libx264-155 \
-    libx265-165 \
+    libx264-160 \
+    libx265-192 \
     libxml2 \
     libturbojpeg0
 
@@ -153,9 +153,9 @@ RUN \
         /etc/xdg/openbox/rc.xml
 
 ## Generate and install favicons
+RUN apt-get update
+RUN install_app_icon.sh "$APP_ICON_URL"
 RUN \
-    apt-get update && \
-    install_app_icon.sh "$APP_ICON_URL" && \
     apt-get autoremove -y && \
     apt-get autoclean -y && \
     apt-get clean -y && \
