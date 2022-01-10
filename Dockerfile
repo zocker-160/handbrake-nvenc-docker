@@ -154,7 +154,6 @@ RUN \
 
 ## Generate and install favicons
 RUN apt-get update
-## this gets stuck for whatever reason
 RUN install_app_icon.sh "$APP_ICON_URL"
 RUN \
     apt-get autoremove -y && \
