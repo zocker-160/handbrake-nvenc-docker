@@ -18,7 +18,8 @@ An official guide by Nvidia can be found [here](https://docs.nvidia.com/datacent
 
 | tag             | Handbrake version |
 |:---------------:|:-----------------:|
-| `14x`, `latest` | 1.4.2             |
+| `15x`, `latest` | 1.5.0             |
+| `14x`           | 1.4.2             |
 | `13x`           | 1.3.x-git         |
 
 Launch the HandBrake docker container with the following command:

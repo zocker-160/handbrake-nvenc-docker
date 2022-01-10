@@ -1,4 +1,4 @@
-name: Dockerimage 1.4.x
+name: Dockerimage 1.5.x
 
 on:
   push:
@@ -19,6 +19,9 @@ jobs:
         HUB_KEY: ${{ secrets.DOCKER_TOKEN }}
       run: |  
         docker login -u $HUB_NAME -p $HUB_KEY
-        docker build . --pull --no-cache --file Dockerfile.14x --tag zocker160/handbrake-nvenc:14x
+        docker build . --pull --no-cache --file Dockerfile --tag zocker160/handbrake-nvenc:latest
         
-        docker push zocker160/handbrake-nvenc:14x
+        docker tag zocker160/handbrake-nvenc:latest zocker160/handbrake-nvenc:15x
+        
+        docker push zocker160/handbrake-nvenc:latest
+        docker push zocker160/handbrake-nvenc:15x
