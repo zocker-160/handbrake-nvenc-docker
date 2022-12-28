@@ -4,6 +4,7 @@
 [![Dockerimage 1.3.x](https://github.com/zocker-160/handbrake-nvenc-docker/actions/workflows/dockerimage-13x.yml/badge.svg)](https://github.com/zocker-160/handbrake-nvenc-docker/actions/workflows/dockerimage-13x.yml)
 [![Dockerimage 1.4.x](https://github.com/zocker-160/handbrake-nvenc-docker/actions/workflows/dockerimage-14x.yml/badge.svg)](https://github.com/zocker-160/handbrake-nvenc-docker/actions/workflows/dockerimage-14x.yml)
 [![Dockerimage 1.5.x](https://github.com/zocker-160/handbrake-nvenc-docker/actions/workflows/dockerimage-15x.yml/badge.svg)](https://github.com/zocker-160/handbrake-nvenc-docker/actions/workflows/dockerimage-15x.yml)
+[![Dockerimage 1.6.x](https://github.com/zocker-160/handbrake-nvenc-docker/actions/workflows/dockerimage-16x.yml/badge.svg)](https://github.com/zocker-160/handbrake-nvenc-docker/actions/workflows/dockerimage-16x.yml)
 
 ### Fork of jlesage/handbrake, adds NVENC Hardware encoding
 
@@ -19,7 +20,8 @@ An official guide by Nvidia can be found [here](https://docs.nvidia.com/datacent
 
 | tag             | Handbrake version |
 |:---------------:|:-----------------:|
-| `15x`, `latest` | 1.5.0             |
+| `16x`, `latest` | 1.6.0             |
+| `15x`           | 1.5.1             |
 | `14x`           | 1.4.2             |
 | `13x`           | 1.3.x-git         |
 
