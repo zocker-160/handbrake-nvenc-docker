@@ -50,8 +50,9 @@ RUN ./configure --prefix=/usr/local \
                 --enable-fdk-aac \
                 --enable-x265 \
                 --enable-numa \
-                --enable-nvenc \
                 --enable-qsv \
+                --enable-nvenc \
+                --enable-nvdec \
                 --launch-jobs=$(nproc) \
                 --launch
 
