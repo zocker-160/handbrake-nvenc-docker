@@ -47,6 +47,7 @@ RUN echo "Compiling HandBrake..."
 RUN ./configure --prefix=/usr/local \
                 --debug=$HANDBRAKE_DEBUG_MODE \
                 --disable-gtk-update-checks \
+                --enable-fdk-aac \
                 --enable-x265 \
                 --enable-numa \
                 --enable-nvenc \
