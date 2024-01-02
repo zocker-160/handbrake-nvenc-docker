@@ -1,12 +1,5 @@
 # Handbrake in a Docker container with nvenc support
 
-[![Dockerimage 1.3.x](https://github.com/zocker-160/handbrake-nvenc-docker/actions/workflows/dockerimage-13x.yml/badge.svg)](https://github.com/zocker-160/handbrake-nvenc-docker/actions/workflows/dockerimage-13x.yml) \
-[![Dockerimage 1.4.x](https://github.com/zocker-160/handbrake-nvenc-docker/actions/workflows/dockerimage-14x.yml/badge.svg)](https://github.com/zocker-160/handbrake-nvenc-docker/actions/workflows/dockerimage-14x.yml) \
-[![Dockerimage 1.5.x](https://github.com/zocker-160/handbrake-nvenc-docker/actions/workflows/dockerimage-15x.yml/badge.svg)](https://github.com/zocker-160/handbrake-nvenc-docker/actions/workflows/dockerimage-15x.yml) \
-[![Dockerimage 1.6.x](https://github.com/zocker-160/handbrake-nvenc-docker/actions/workflows/dockerimage-16x.yml/badge.svg)](https://github.com/zocker-160/handbrake-nvenc-docker/actions/workflows/dockerimage-16x.yml) \
-[![Dockerimage 1.7.x](https://github.com/zocker-160/handbrake-nvenc-docker/actions/workflows/dockerimage-17x.yml/badge.svg)](https://github.com/zocker-160/handbrake-nvenc-docker/actions/workflows/dockerimage-17x.yml) \
-[![Dockerimage dev](https://github.com/zocker-160/handbrake-nvenc-docker/actions/workflows/dockerimage-dev.yml/badge.svg)](https://github.com/zocker-160/handbrake-nvenc-docker/actions/workflows/dockerimage-dev.yml)
-
 ### Fork of jlesage/handbrake, adds NVENC Hardware encoding
 
 In order to make this image work you need Docker >= 19.03 and the latest [NVIDIA driver](https://github.com/NVIDIA/nvidia-docker/wiki/Frequently-Asked-Questions#how-do-i-install-the-nvidia-driver) installed on your host system.
@@ -21,16 +14,22 @@ An official guide by Nvidia can be found [here](https://docs.nvidia.com/datacent
 
 ### Supported tags
 
-| tag             | Handbrake version |
-|:---------------:|:-----------------:|
-| `17x`, `latest` | 1.7.2             |
-| `16x`           | 1.6.1             |
-| `15x`           | 1.5.1             |
-| `14x`           | 1.4.2             |
-| `13x`           | 1.3.x-git         |
+| tag             | Handbrake version | build status           |
+|:---------------:|:-----------------:|:----------------------:|
+| `17x`, `latest` | 1.7.2             | ![Dockerimage 1.7.x][] |
+| `16x`           | 1.6.1             | ![Dockerimage 1.6.x][] |
+| `15x`           | 1.5.1             | ![Dockerimage 1.5.x][] |
+| `14x`           | 1.4.2             | ![Dockerimage 1.4.x][] |
+| `13x`           | 1.3.x-git         | ![Dockerimage 1.3.x][] |
+
+[Dockerimage 1.7.x]: https://github.com/zocker-160/handbrake-nvenc-docker/actions/workflows/dockerimage-17x.yml/badge.svg
+[Dockerimage 1.6.x]: https://github.com/zocker-160/handbrake-nvenc-docker/actions/workflows/dockerimage-16x.yml/badge.svg
+[Dockerimage 1.5.x]: https://github.com/zocker-160/handbrake-nvenc-docker/actions/workflows/dockerimage-15x.yml/badge.svg
+[Dockerimage 1.4.x]: https://github.com/zocker-160/handbrake-nvenc-docker/actions/workflows/dockerimage-14x.yml/badge.svg
+[Dockerimage 1.3.x]: https://github.com/zocker-160/handbrake-nvenc-docker/actions/workflows/dockerimage-13x.yml/badge.svg
+[Dockerimage dev]: https://github.com/zocker-160/handbrake-nvenc-docker/actions/workflows/dockerimage-dev.yml/badge.svg
 
 Launch the HandBrake docker container with the following command:
-
 ```
 docker run -d -t \
     --name=handbrake \
