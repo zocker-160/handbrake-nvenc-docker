@@ -17,7 +17,7 @@ jobs:
       env:
         HUB_NAME: ${{ secrets.DOCKER_NAME }}
         HUB_KEY: ${{ secrets.DOCKER_TOKEN }}
-      run: |  
+      run: |
         docker login -u $HUB_NAME -p $HUB_KEY
         docker build . --pull --no-cache --file Dockerfile.15x --tag zocker160/handbrake-nvenc:15x
 
