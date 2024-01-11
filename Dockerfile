@@ -38,12 +38,11 @@ RUN pip3 install -U meson
 
 ## Download HandBrake sources
 RUN echo "Downloading HandBrake sources..."
-RUN git clone $HANDBRAKE_URL_GIT
+RUN git clone $HANDBRAKE_URL_GIT --branch $HANDBRAKE_VERSION_TAG
 
 ## Compile HandBrake
 WORKDIR /HB/HandBrake
 
-RUN git checkout $HANDBRAKE_VERSION_TAG
 RUN ./scripts/repo-info.sh > version.txt
 
 RUN echo "Compiling HandBrake..."
@@ -135,7 +134,7 @@ RUN rm $DVDCSS_NAME
 
 ## install scripts and stuff from upstream Handbrake docker image
 RUN git config --global http.sslVerify false
-RUN git clone https://github.com/jlesage/docker-handbrake.git
+RUN git clone https://github.com/jlesage/docker-handbrake.git --branch v23.12.2
 RUN cp -r docker-handbrake/rootfs/* /
 
 ## Cleanup
