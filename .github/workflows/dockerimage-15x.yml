@@ -4,6 +4,9 @@ on:
   push:
     branches: 
       - master
+    paths:
+      - "**-15x.yml"
+      - "Dockerfile.15x"
 
 jobs:
   handbrake:

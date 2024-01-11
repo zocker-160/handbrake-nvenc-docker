@@ -2,8 +2,11 @@ name: Dockerimage 1.3.x
 
 on:
   push:
-    branches: 
+    branches:
       - master
+    paths:
+      - "**-13x.yml"
+      - "Dockerfile.13x"
 
 jobs:
   handbrake:
