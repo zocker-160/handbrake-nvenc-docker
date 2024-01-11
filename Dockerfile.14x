@@ -1,4 +1,4 @@
-FROM debian:10 AS builder
+FROM ubuntu:22.04 AS builder
 
 MAINTAINER zocker-160
 
@@ -21,21 +21,24 @@ RUN apt-get install -y \
 
 ## Install dependencies
 RUN apt-get install -y \
-    autoconf automake build-essential cmake git libass-dev libbz2-dev libfontconfig1-dev libfreetype6-dev libfribidi-dev libharfbuzz-dev libjansson-dev liblzma-dev libmp3lame-dev libnuma-dev libogg-dev libopus-dev libsamplerate-dev libspeex-dev libtheora-dev libtool libtool-bin libturbojpeg0-dev libvorbis-dev libx264-dev libxml2-dev libvpx-dev m4 make nasm ninja-build patch pkg-config python tar zlib1g-dev
-    
+    autoconf automake autopoint appstream build-essential cmake git libass-dev libbz2-dev libfontconfig1-dev libfreetype6-dev libfribidi-dev libharfbuzz-dev libjansson-dev liblzma-dev libmp3lame-dev libnuma-dev libogg-dev libopus-dev libsamplerate-dev libspeex-dev libtheora-dev libtool libtool-bin libturbojpeg0-dev libvorbis-dev libx264-dev libxml2-dev libvpx-dev m4 make meson nasm ninja-build patch pkg-config python2 tar zlib1g-dev
+
 ## Intel CSV dependencies
 RUN apt-get install -y libva-dev libdrm-dev
     
 ## GTK GUI dependencies
 RUN apt-get install -y \ 
-    intltool libappindicator-dev libdbus-glib-1-dev libglib2.0-dev libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev libgtk-3-dev libgudev-1.0-dev libnotify-dev libwebkit2gtk-4.0-dev
+    gstreamer1.0-libav intltool libappindicator-dev libdbus-glib-1-dev libglib2.0-dev libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev libgtk-3-dev libgudev-1.0-dev libnotify-dev libwebkit2gtk-4.0-dev
+
+## Install clang
+RUN apt-get install -y clang
 
 ## Install meson from pip
 RUN pip3 install -U meson
 
 ## Download HandBrake sources
 RUN echo "Downloading HandBrake sources..."
-RUN git clone $HANDBRAKE_URL_GIT
+RUN git clone $HANDBRAKE_URL_GIT --branch $HANDBRAKE_VERSION_TAG
 
 ## Compile HandBrake
 WORKDIR /HB/HandBrake
@@ -60,11 +63,11 @@ RUN make -j$(nproc) --directory=build install
 ##########################################################################################
 
 ## Pull base image
-FROM jlesage/baseimage-gui:debian-10
+FROM jlesage/baseimage-gui:ubuntu-22.04-v4
 
 ENV NVIDIA_VISIBLE_DEVICES all
 ENV NVIDIA_DRIVER_CAPABILITIES all
-ENV DEBIAN_FRONTEND noninterac1tive
+ENV DEBIAN_FRONTEND noninteractive
 
 ENV APP_NAME="HandBrake"
 ENV AUTOMATED_CONVERSION_PRESET="Very Fast 1080p30"
@@ -73,7 +76,7 @@ ENV AUTOMATED_CONVERSION_FORMAT="mp4"
 ## URLs
 ENV APP_ICON_URL https://raw.githubusercontent.com/jlesage/docker-templates/master/jlesage/images/handbrake-icon.png
 
-ENV DVDCSS_NAME libdvd-pkg_1.4.2-1-1_all.deb
+ENV DVDCSS_NAME libdvd-pkg_1.4.3-1-1_all.deb
 ENV DVDCSS_URL http://ftp.br.debian.org/debian/pool/contrib/libd/libdvd-pkg/$DVDCSS_NAME
 
 WORKDIR /tmp
@@ -92,7 +95,7 @@ RUN apt-get install -y --no-install-recommends \
     tcl8.6 \
     wget \
     git
-    
+
 ## Handbrake dependencies
 RUN apt-get install -y \
     libass9 \
@@ -104,7 +107,7 @@ RUN apt-get install -y \
     libc6 \
     libcairo2 \
     libdvdnav4 \
-    libdvdread4 \
+    libdvdread8 \
     libgdk-pixbuf2.0-0 \
     libglib2.0-0 \
     libgstreamer-plugins-base1.0-0 \
@@ -119,10 +122,10 @@ RUN apt-get install -y \
     libtheora0 \
     libvorbis0a \
     libvorbisenc2 \
-    libx264-155 \
-    libx265-165 \
+    libx264-163 \
+    libx265-199 \
     libxml2 \
-    libturbojpeg0
+    libturbojpeg
 
 ## To read encrypted DVDs install libdvdcss
 RUN wget $DVDCSS_URL
@@ -131,7 +134,7 @@ RUN rm $DVDCSS_NAME
 
 ## install scripts and stuff from upstream Handbrake docker image
 RUN git config --global http.sslVerify false
-RUN git clone https://github.com/jlesage/docker-handbrake.git
+RUN git clone https://github.com/jlesage/docker-handbrake.git --branch v23.12.2
 RUN cp -r docker-handbrake/rootfs/* /
 
 ## Cleanup
@@ -143,19 +146,10 @@ RUN apt-get remove wget git -y && \
     apt-get purge -y && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-## Adjust the openbox config
-RUN \
-    # Maximize only the main/initial window.
-    sed-patch 's/<application type="normal">/<application type="normal" title="HandBrake">/' \
-        /etc/xdg/openbox/rc.xml && \
-    # Make sure the main window is always in the background.
-    sed-patch '/<application type="normal" title="HandBrake">/a \    <layer>below</layer>' \
-        /etc/xdg/openbox/rc.xml
-
 ## Generate and install favicons
+RUN apt-get update
+RUN install_app_icon.sh "$APP_ICON_URL"
 RUN \
-    apt-get update && \
-    install_app_icon.sh "$APP_ICON_URL" && \
     apt-get autoremove -y && \
     apt-get autoclean -y && \
     apt-get clean -y && \
@@ -164,6 +158,8 @@ RUN \
 
 # Copy HandBrake from base build image
 COPY --from=builder /usr/local /usr
+
+RUN set-cont-env APP_NAME "HandBrake ${HANDBRAKE_VERSION_TAG}"
 
 # Define mountable directories
 VOLUME ["/config"]
