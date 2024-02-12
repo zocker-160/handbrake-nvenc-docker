@@ -16,7 +16,7 @@ An official guide by Nvidia can be found [here](https://docs.nvidia.com/datacent
 
 | tag             | Handbrake version | build status           |
 |:---------------:|:-----------------:|:----------------------:|
-| `17x`, `latest` | 1.7.2             | ![Dockerimage 1.7.x][] |
+| `17x`, `latest` | 1.7.3             | ![Dockerimage 1.7.x][] |
 | `16x`           | 1.6.1             | ![Dockerimage 1.6.x][] |
 | `15x`           | 1.5.1             | ![Dockerimage 1.5.x][] |
 | `14x`           | 1.4.2             | ![Dockerimage 1.4.x][] |
