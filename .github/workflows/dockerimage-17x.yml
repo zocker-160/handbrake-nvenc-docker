@@ -6,7 +6,7 @@ on:
       - master
     paths:
       - "**-17x.yml"
-      - "Dockerfile"
+      - "Dockerfile.17x"
 
 jobs:
   handbrake:
@@ -22,9 +22,9 @@ jobs:
         HUB_KEY: ${{ secrets.DOCKER_TOKEN }}
       run: |
         docker login -u $HUB_NAME -p $HUB_KEY
-        docker build . --pull --no-cache --file Dockerfile --tag zocker160/handbrake-nvenc:latest
+        docker build . --pull --no-cache --file Dockerfile.17x --tag zocker160/handbrake-nvenc:17x
 
-        docker tag zocker160/handbrake-nvenc:latest zocker160/handbrake-nvenc:17x
+        docker tag zocker160/handbrake-nvenc:17x zocker160/handbrake-nvenc:latest
 
-        docker push zocker160/handbrake-nvenc:latest
         docker push zocker160/handbrake-nvenc:17x
+        docker push zocker160/handbrake-nvenc:latest

@@ -16,12 +16,14 @@ An official guide by Nvidia can be found [here](https://docs.nvidia.com/datacent
 
 | tag             | Handbrake version | build status           |
 |:---------------:|:-----------------:|:----------------------:|
+| `18x`           | 1.8.0             | ![Dockerimage 1.8.x][] |
 | `17x`, `latest` | 1.7.3             | ![Dockerimage 1.7.x][] |
 | `16x`           | 1.6.1             | ![Dockerimage 1.6.x][] |
 | `15x`           | 1.5.1             | ![Dockerimage 1.5.x][] |
 | `14x`           | 1.4.2             | ![Dockerimage 1.4.x][] |
 | `13x`           | 1.3.x-git         | ![Dockerimage 1.3.x][] |
 
+[Dockerimage 1.8.x]: https://github.com/zocker-160/handbrake-nvenc-docker/actions/workflows/dockerimage-18x.yml/badge.svg
 [Dockerimage 1.7.x]: https://github.com/zocker-160/handbrake-nvenc-docker/actions/workflows/dockerimage-17x.yml/badge.svg
 [Dockerimage 1.6.x]: https://github.com/zocker-160/handbrake-nvenc-docker/actions/workflows/dockerimage-16x.yml/badge.svg
 [Dockerimage 1.5.x]: https://github.com/zocker-160/handbrake-nvenc-docker/actions/workflows/dockerimage-15x.yml/badge.svg
