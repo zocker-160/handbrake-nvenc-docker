@@ -2,8 +2,10 @@ name: Dockerimage nightly
 
 on:
   push:
-    branches:
-      - dev
+      - master
+    paths:
+      - "**-nightly.yml"
+      - "Dockerfile.latest"
   schedule:
     - cron: '0 3 * * *'
   workflow_dispatch:
