@@ -45,6 +45,32 @@ docker run -d -t \
     zocker160/handbrake-nvenc:latest
 ```
 
+Docker compose `docker compose up -d`
+```yml
+version: '3'
+services:
+  handbrake:
+    image: zocker160/handbrake-nvenc:18x
+    container_name: handbrake
+    environment:
+      - AUTOMATED_CONVERSION_FORMAT=mp4
+      - AUTOMATED_CONVERSION_PRESET=Creator 1080p60
+    ports:
+      - 5800:5800
+    volumes:
+      - <replace/the/path>:/config:rw
+      - <replace/the/path>:/storage:ro
+      - <replace/the/path>:/watch:rw
+      - <replace/the/path>:/output:rw
+    restart: always 
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - count: all
+              capabilities: [gpu]
+```
+
 #### Usage
 
 - `--gpus all` this enables the passthrough to the GPU(s)
