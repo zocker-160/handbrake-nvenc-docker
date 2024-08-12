@@ -2,7 +2,7 @@ FROM ubuntu:22.04 AS builder
 
 MAINTAINER zocker-160
 
-ENV HANDBRAKE_VERSION_TAG 1.8.1
+ENV HANDBRAKE_VERSION_TAG 1.8.2
 ENV HANDBRAKE_DEBUG_MODE none
 
 ENV HANDBRAKE_URL https://api.github.com/repos/HandBrake/HandBrake/releases/tags/$HANDBRAKE_VERSION
@@ -135,7 +135,7 @@ RUN rm $DVDCSS_NAME
 
 ## install scripts and stuff from upstream Handbrake docker image
 RUN git config --global http.sslVerify false
-RUN git clone https://github.com/jlesage/docker-handbrake.git --branch v24.03.1
+RUN git clone https://github.com/jlesage/docker-handbrake.git --branch v24.06.1
 RUN cp -r docker-handbrake/rootfs/* /
 
 ## Cleanup
