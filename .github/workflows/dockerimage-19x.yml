@@ -1,12 +1,12 @@
-name: Dockerimage 1.8.x
+name: Dockerimage 1.9.x
 
 on:
   push:
     branches:
       - master
     paths:
-      - "**-18x.yml"
-      - "Dockerfile.18x"
+      - "**-19x.yml"
+      - "Dockerfile"
 
 jobs:
   handbrake:
@@ -22,6 +22,9 @@ jobs:
         HUB_KEY: ${{ secrets.DOCKER_TOKEN }}
       run: |
         docker login -u $HUB_NAME -p $HUB_KEY
-        docker build . --pull --no-cache --file Dockerfile.18x --tag zocker160/handbrake-nvenc:18x
+        docker build . --pull --no-cache --file Dockerfile --tag zocker160/handbrake-nvenc:19x
 
-        docker push zocker160/handbrake-nvenc:18x
+        docker tag zocker160/handbrake-nvenc:19x zocker160/handbrake-nvenc:latest
+
+        docker push zocker160/handbrake-nvenc:19x
+        docker push zocker160/handbrake-nvenc:latest

@@ -2,7 +2,7 @@ FROM ubuntu:22.04 AS builder
 
 MAINTAINER zocker-160
 
-ENV HANDBRAKE_VERSION_TAG 1.9.0
+ENV HANDBRAKE_VERSION_TAG 1.8.2
 ENV HANDBRAKE_DEBUG_MODE none
 
 ENV HANDBRAKE_URL https://api.github.com/repos/HandBrake/HandBrake/releases/tags/$HANDBRAKE_VERSION
@@ -97,10 +97,10 @@ RUN apt-get install -y --no-install-recommends \
 
 ## Handbrake dependencies
 RUN apt-get install -y \
-    gstreamer1.0-libav \
-    gstreamer1.0-plugins-base \
-    gstreamer1.0-plugins-good \
-    gstreamer1.0-fdkaac \
+	gstreamer1.0-libav \
+	gstreamer1.0-plugins-base \
+	gstreamer1.0-plugins-good \
+	gstreamer1.0-fdkaac \
     libass9 \
     libavcodec-extra58 \
     libavfilter-extra7 \
