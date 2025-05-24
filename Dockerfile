@@ -2,7 +2,7 @@ FROM ubuntu:22.04 AS builder
 
 MAINTAINER zocker-160
 
-ENV HANDBRAKE_VERSION_TAG 1.9.0
+ENV HANDBRAKE_VERSION_TAG 1.9.2
 ENV HANDBRAKE_DEBUG_MODE none
 
 ENV HANDBRAKE_URL https://api.github.com/repos/HandBrake/HandBrake/releases/tags/$HANDBRAKE_VERSION
