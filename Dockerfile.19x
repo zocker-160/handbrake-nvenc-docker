@@ -1,14 +1,14 @@
 FROM ubuntu:22.04 AS builder
 
-LABEL Maintainer zocker-160
+MAINTAINER zocker-160
 
-ENV HANDBRAKE_VERSION_TAG=1.10.1
-ENV HANDBRAKE_DEBUG_MODE=none
+ENV HANDBRAKE_VERSION_TAG 1.9.2
+ENV HANDBRAKE_DEBUG_MODE none
 
-ENV HANDBRAKE_URL=https://api.github.com/repos/HandBrake/HandBrake/releases/tags/$HANDBRAKE_VERSION
-ENV HANDBRAKE_URL_GIT=https://github.com/HandBrake/HandBrake.git
+ENV HANDBRAKE_URL https://api.github.com/repos/HandBrake/HandBrake/releases/tags/$HANDBRAKE_VERSION
+ENV HANDBRAKE_URL_GIT https://github.com/HandBrake/HandBrake.git
 
-ENV DEBIAN_FRONTEND=noninteractive
+ENV DEBIAN_FRONTEND noninteractive
 
 
 WORKDIR /HB
@@ -64,19 +64,19 @@ RUN make -j$(nproc) --directory=build install
 ## Pull base image
 FROM jlesage/baseimage-gui:ubuntu-22.04-v4
 
-ENV NVIDIA_VISIBLE_DEVICES=all
-ENV NVIDIA_DRIVER_CAPABILITIES=all
-ENV DEBIAN_FRONTEND=noninteractive
+ENV NVIDIA_VISIBLE_DEVICES all
+ENV NVIDIA_DRIVER_CAPABILITIES all
+ENV DEBIAN_FRONTEND noninteractive
 
 ENV APP_NAME="HandBrake"
 ENV AUTOMATED_CONVERSION_PRESET="Very Fast 1080p30"
 ENV AUTOMATED_CONVERSION_FORMAT="mp4"
 
 ## URLs
-ENV APP_ICON_URL=https://raw.githubusercontent.com/jlesage/docker-templates/master/jlesage/images/handbrake-icon.png
+ENV APP_ICON_URL https://raw.githubusercontent.com/jlesage/docker-templates/master/jlesage/images/handbrake-icon.png
 
-ENV DVDCSS_NAME=libdvd-pkg_1.4.3-1-1_all.deb
-ENV DVDCSS_URL=http://ftp.br.debian.org/debian/pool/contrib/libd/libdvd-pkg/$DVDCSS_NAME
+ENV DVDCSS_NAME libdvd-pkg_1.4.3-1-1_all.deb
+ENV DVDCSS_URL http://ftp.br.debian.org/debian/pool/contrib/libd/libdvd-pkg/$DVDCSS_NAME
 
 WORKDIR /tmp
 
@@ -135,7 +135,7 @@ RUN rm $DVDCSS_NAME
 
 ## install scripts and stuff from upstream Handbrake docker image
 RUN git config --global http.sslVerify false
-RUN git clone https://github.com/jlesage/docker-handbrake.git --branch v25.07.2
+RUN git clone https://github.com/jlesage/docker-handbrake.git --branch v24.06.1
 RUN cp -r docker-handbrake/rootfs/* /
 
 ## Cleanup
