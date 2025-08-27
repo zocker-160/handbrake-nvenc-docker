@@ -17,14 +17,16 @@ An official guide by Nvidia can be found [here](https://docs.nvidia.com/datacent
 | tag             | Handbrake version | build status             |
 |:---------------:|:-----------------:|:------------------------:|
 | `nightly`       | master            | ![Dockerimage nightly][] |
+| `19x`, `latest` | 1.9.0             | ![Dockerimage 1.9.x][]   |
 | `18x`           | 1.8.2             | ![Dockerimage 1.8.x][]   |
-| `17x`, `latest` | 1.7.3             | ![Dockerimage 1.7.x][]   |
+| `17x`           | 1.7.3             | ![Dockerimage 1.7.x][]   |
 | `16x`           | 1.6.1             | ![Dockerimage 1.6.x][]   |
 | `15x`           | 1.5.1             | ![Dockerimage 1.5.x][]   |
 | `14x`           | 1.4.2             | ![Dockerimage 1.4.x][]   |
 | `13x`           | 1.3.x-git         | ![Dockerimage 1.3.x][]   |
 
 [Dockerimage nightly]: https://github.com/zocker-160/handbrake-nvenc-docker/actions/workflows/dockerimage-nightly.yml/badge.svg
+[Dockerimage 1.9.x]: https://github.com/zocker-160/handbrake-nvenc-docker/actions/workflows/dockerimage-19x.yml/badge.svg
 [Dockerimage 1.8.x]: https://github.com/zocker-160/handbrake-nvenc-docker/actions/workflows/dockerimage-18x.yml/badge.svg
 [Dockerimage 1.7.x]: https://github.com/zocker-160/handbrake-nvenc-docker/actions/workflows/dockerimage-17x.yml/badge.svg
 [Dockerimage 1.6.x]: https://github.com/zocker-160/handbrake-nvenc-docker/actions/workflows/dockerimage-16x.yml/badge.svg
@@ -45,24 +47,24 @@ docker run -d -t \
     zocker160/handbrake-nvenc:latest
 ```
 
-Docker compose `docker compose up -d`
+docker compose `docker compose up -d`
 ```yml
-version: '3'
 services:
   handbrake:
-    image: zocker160/handbrake-nvenc:18x
+    image: zocker160/handbrake-nvenc:latest
     container_name: handbrake
     environment:
       - AUTOMATED_CONVERSION_FORMAT=mp4
       - AUTOMATED_CONVERSION_PRESET=Creator 1080p60
     ports:
-      - 5800:5800
+      - 5800:5800  # WebUI
+      #- 5900:5900 # VNC
     volumes:
       - <replace/the/path>:/config:rw
       - <replace/the/path>:/storage:ro
       - <replace/the/path>:/watch:rw
       - <replace/the/path>:/output:rw
-    restart: always 
+    restart: unless-stopped 
     deploy:
       resources:
         reservations:
