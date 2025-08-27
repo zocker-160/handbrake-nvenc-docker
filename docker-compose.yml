@@ -1,0 +1,23 @@
+services:
+  handbrake:
+    #image: zocker160/handbrake-nvenc:latest
+    image: gh # for local builds
+    container_name: Handbrake-local
+    environment:
+      - AUTOMATED_CONVERSION_FORMAT=mp4
+      - AUTOMATED_CONVERSION_PRESET=Creator 1080p60
+    ports:
+      - 5800:5800  # WebUI
+      #- 5900:5900 # VNC
+    #volumes:
+      #- <replace/the/path>:/config:rw
+      #- <replace/the/path>:/storage:ro
+      #- <replace/the/path>:/watch:rw
+      #- <replace/the/path>:/output:rw
+    restart: unless-stopped
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - count: all
+              capabilities: [gpu]
