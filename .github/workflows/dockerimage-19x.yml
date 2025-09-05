@@ -6,7 +6,7 @@ on:
       - master
     paths:
       - "**-19x.yml"
-      - "Dockerfile"
+      - "Dockerfile.19x"
 
 jobs:
   handbrake:
@@ -22,6 +22,6 @@ jobs:
         HUB_KEY: ${{ secrets.DOCKER_TOKEN }}
       run: |
         docker login -u $HUB_NAME -p $HUB_KEY
-        docker build . --pull --no-cache --file Dockerfile --tag zocker160/handbrake-nvenc:19x
+        docker build . --pull --no-cache --file Dockerfile.19x --tag zocker160/handbrake-nvenc:19x
 
         docker push zocker160/handbrake-nvenc:19x
