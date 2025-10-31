@@ -135,7 +135,7 @@ RUN rm $DVDCSS_NAME
 
 ## install scripts and stuff from upstream Handbrake docker image
 RUN git config --global http.sslVerify false
-RUN git clone https://github.com/jlesage/docker-handbrake.git --branch v25.07.2
+RUN git clone https://github.com/jlesage/docker-handbrake.git --branch v25.10.1
 RUN cp -r docker-handbrake/rootfs/* /
 
 ## Cleanup
